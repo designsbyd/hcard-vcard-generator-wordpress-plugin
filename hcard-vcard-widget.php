@@ -4,20 +4,14 @@
  *                 
  * @since 3.0
  */
-class Widget_hCard_vCard extends WP_Widget {
+class Widget_hCard_vCard extends WP_Widget { //updated to PHP7+
 
-	function Widget_hCard_vCard() {
+	function __construct() {
 
-		$widget_ops = array( 
-			'description' => 'Gets the current author\'s hCard'
-		);
-		
-		$this->WP_Widget( 
-			'hcard-vcard-generator', 
-			'hCard & vCard Generator Widget', 
-			$widget_ops
-		);
-		
+			parent::__construct(
+			false,
+			__( 'hCard & vCard Generator Widget', 'hcard-vcard-generator' ),
+			array( 'description' => __( 'Gets the current author\'s hCard', 'hcard-vcard-generator' ) ) );
 	}
 
 	function widget($args, $instance) {
@@ -29,7 +23,7 @@ class Widget_hCard_vCard extends WP_Widget {
 		$display_vcard = $instance['display_vcard'] == 'checked';
 		$autogen_title = $instance['autogen_title'] == 'checked';
 		
-		$id = (!empty($user) ? $user : get_the_author_meta('id'));
+		$id = (!empty($user) ? $user : get_the_author_meta('ID'));//'id' > ID'
 		
 		if (is_numeric($id)) {
 			$user_info = get_userdata($id);
